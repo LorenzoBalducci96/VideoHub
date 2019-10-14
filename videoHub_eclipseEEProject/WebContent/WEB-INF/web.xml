@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>videoHub</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+  	<servlet-name>RequestDataServlet</servlet-name>
+  	<servlet-class>serviceServlets.RequestDataServlet</servlet-class>
+  	<init-param>
+    		<param-name>data-folder</param-name>
+    		<param-value>C:\Users\Lorenzo\Desktop\videoHubEclipseWorkspace\videoHub\WebContent\SERVER_DATA</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>RequestDataServlet</servlet-name>
+  	<url-pattern>/requestData</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>UploadServlet</servlet-name>
+  	<servlet-class>serviceServlets.UploadServlet</servlet-class>
+  	<init-param>
+    		<param-name>data-folder</param-name>
+    		<param-value>C:\Users\Lorenzo\Desktop\videoHubEclipseWorkspace\videoHub\WebContent\SERVER_DATA</param-value>
+    </init-param>
+    <init-param>
+    		<param-name>temp-folder</param-name>
+    		<param-value>C:\Users\Lorenzo\Desktop\videoHubEclipseWorkspace\videoHub\WebContent\temp</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>UploadServlet</servlet-name>
+  	<url-pattern>/uploadData</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>CreateFolderServlet</servlet-name>
+  	<servlet-class>serviceServlets.CreateFolderServlet</servlet-class>
+  	<init-param>
+    		<param-name>data-folder</param-name>
+    		<param-value>C:\Users\Lorenzo\Desktop\videoHubEclipseWorkspace\videoHub\WebContent\SERVER_DATA</param-value>
+    </init-param>
+    <init-param>
+    		<param-name>temp-folder</param-name>
+    		<param-value>C:\Users\Lorenzo\Desktop\videoHubEclipseWorkspace\videoHub\WebContent\temp</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>CreateFolderServlet</servlet-name>
+  	<url-pattern>/createFolder</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+</web-app>
