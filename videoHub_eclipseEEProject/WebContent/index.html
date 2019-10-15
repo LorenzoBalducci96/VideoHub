@@ -141,7 +141,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 	    
 	    <div class="upload-btn-wrapper">
 			<button class="btn-upload-video">Upload video</button>
-			<input type="file" name="video"/>
+			<input type="file" name="video" id="video"/>
 		</div>
 	    
 	    <br>
@@ -154,13 +154,19 @@ body {font-family: Arial, Helvetica, sans-serif;}
 	    	<textarea name="descrizione" class="form-control" rows="3" placeholder="descrizione (apparirà nella lista dei video)"></textarea>
 	    </label>
 	    
-		<button type="submit" class="btn">Upload Video</button>
+	    <progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
+	    
+	    <h3 id="status"></h3>
+  		<p id="loaded_n_total"></p>
+	    
+		<!--<button type="submit" class="btn">Upload Video</button>-->
+		<button type="button" class="btn" onclick="uploadVideoAjax()">Upload Video</button>
 	    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
 	  </form>
 	</div>
 	
 	<div class="upload-video-form-popup" id="createFolderForm">
-	  <form method="post" action="createFolder" class="form-container" onsubmit="return fillCreateFolderPathValue();">
+	  <div class="form-container">
 	    
 	    <label><b>create folder ("tv series 2019", "disney films", "action movies"...)</b></label>
 	    
@@ -173,9 +179,10 @@ body {font-family: Arial, Helvetica, sans-serif;}
 	    
 	    <br>
 	    
-		<button type="submit" class="btn">Upload Video</button>
+		<!-- <button type="submit" class="btn">Upload Video</button>-->
+		<button type="button" class="btn" onClick="createFolderAjax()">Create folder now</button>
 	    <button type="button" class="btn cancel" onclick="closeFormCreateFolder()">Close</button>
-	  </form>
+	  </div>
 	</div>
 		
 	<br>
@@ -230,7 +237,7 @@ function requestData(requested_folder) {
 	    		backButton.onclick = function() {
 	    			requestData(this.id);
 	    		};
-	    		actualFolderShower.innerHTML = requested_folder.substr(0,requested_folder.lastIndexOf("/"));
+	    		actualFolderShower.innerHTML = requested_folder;//.substr(0,requested_folder.lastIndexOf("/"));
 	    	}
 	    	else{
 	    		backButton.style.visibility = "hidden";
@@ -243,32 +250,75 @@ function requestData(requested_folder) {
 }
 
 
-function callback(){
-	alert("funziona");
+//upload handling
+function uploadVideoAjax() {
+	var file = document.getElementById("video").files[0];
+	var path = actualFolder;
+	// alert(file.name+" | "+file.size+" | "+file.type);
+	var formdata = new FormData();
+	//formdata.append("path", "/new/try");
+	formdata.append("path", path);
+	formdata.append("video", file);
+	var ajax = new XMLHttpRequest();
+	ajax.upload.addEventListener("progress", progressHandler, false);
+	ajax.addEventListener("load", completeHandler, false);
+	ajax.addEventListener("error", errorHandler, false);
+	ajax.addEventListener("abort", abortHandler, false);
+	ajax.open("POST", "uploadData"); // http://www.developphp.com/video/JavaScript/File-Upload-Progress-Bar-Meter-Tutorial-Ajax-PHP
+	//use file_upload_parser.php from above url
+	ajax.send(formdata);
+}
+
+function progressHandler(event) {
+	document.getElementById("loaded_n_total").innerHTML = "Uploaded " + event.loaded + " bytes of " + event.total;
+	var percent = (event.loaded / event.total) * 100;
+	document.getElementById("progressBar").value = Math.round(percent);
+	document.getElementById("status").innerHTML = Math.round(percent) + "% uploaded... please wait";
+}
+
+function completeHandler(event) {
+	document.getElementById("status").innerHTML = event.target.responseText;
+	document.getElementById("progressBar").value = 0; //wil clear progress bar after successful upload
+	requestData(actualFolder);
+}
+
+function errorHandler(event) {
+	document.getElementById("status").innerHTML = "Upload Failed";
+}
+
+function abortHandler(event) {
+	document.getElementById("status").innerHTML = "Upload Aborted";
+}
+//end of handling update file
+	
+
+function createFolderAjax() {
+	var folderPath = actualFolder + "/" + document.getElementById('folderPath').value;
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			closeFormCreateFolder();
+			requestData(actualFolder);
+		}
+	  };
+	  xhttp.open("POST", "createFolder?folderPath=" + folderPath, true);
+	  xhttp.send();
 }
 
 function openPlayer(path){
 	path = "SERVER_DATA" + path;
-	
-	/*
-	video.pause();
-	source.setAttribute('src', path);
-	  video.load();
-	  video.play();
-	*/
 
 	video.pause();
 	video.setAttribute('src', path);
 	video.load();
-	video.play();
-	
-
+	//video.play();
+	video.play().catch((e) => {console.log("error: not deployed folder")});
 }
 
 function setData(text){
 	var table = document.getElementById("myTable");
 	table.innerHTML = "";
-	var yourLines = text.split("\n");
+	var yourLines = text.split("\r\n");
 	var i = 0;
 	while(i < yourLines.length){
 		if(yourLines[i].trim() == "file" || yourLines[i].trim() == "folder"){
@@ -306,15 +356,16 @@ function setData(text){
 
 //fill invisible form with path
 function fillPathValue() {
-    alert('Validating form...');
     document.getElementById('file_path_in_upload_form').value = actualFolder;
 	return true;
 }
 
+/*
 function fillCreateFolderPathValue(){
 	document.getElementById('folderPath').value = actualFolder + "/" + document.getElementById('folderPath').value;
 	return true;
 }
+*/
 
 </script>
 

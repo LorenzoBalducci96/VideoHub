@@ -46,15 +46,10 @@ public class UploadServlet extends HttpServlet {
 			throws ServletException, java.io.IOException {
 		PrintWriter out = response.getWriter();
 		out.println("sono nella servlet");
-		/*
-		 * id domanda opzione_corretta opzione_errata1 opzione_errata2 opzione_errata3
-		 * video
-		 */
-		// Check that we have a file upload request
 		if (ServletFileUpload.isMultipartContent(request)) {// e una richiesta di upload
 			try {
 				
-				String videoPath = dataBasePath + "/";
+				String videoPath = dataBasePath;
 				
 				List<FileItem> fileItems = upload.parseRequest(request);
 				
@@ -82,43 +77,6 @@ public class UploadServlet extends HttpServlet {
 						}
 					}
 				}
-				
-				/*
-				Iterator<FileItem> i = fileItems.iterator();
-				out.println("entro nel ciclo");
-				while (i.hasNext()) {
-					FileItem fi = (FileItem) i.next();
-					if (!fi.isFormField()) {
-						String fieldName = fi.getFieldName();
-						String fileName = fi.getName();
-						String contentType = fi.getContentType();
-						boolean isInMemory = fi.isInMemory();
-						long sizeInBytes = fi.getSize();
-						
-						if(fieldName.contentEquals("path")) {
-							videoPath += fileName;
-						}
-
-						if (fieldName.equals("video")) {
-							// String prefix = getServletContext().getRealPath("/");
-							// String path = filePath + fileName.substring( fileName.lastIndexOf("/"));
-							videoPath += "/" + fileName;
-							//videoHost = dataBasePath + fileName + generatedCode;
-							File file = new File(videoPath);
-							if(!file.exists())
-								file.createNewFile();
-							out.println("carico spot");
-							fi.write(file);
-						}
-					} 
-					else {
-						String fieldname = fi.getFieldName();
-						String fieldvalue = fi.getString();
-						if (fieldname.equals("path")) {
-							videoPath += "/" + fieldvalue;
-						}
-					}
-				}*/
 			} catch (Exception ex) {
 				System.out.println(ex);
 				response.sendRedirect("errore.html");
