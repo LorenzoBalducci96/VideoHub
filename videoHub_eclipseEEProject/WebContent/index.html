@@ -1,129 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<script>
-
-</script>
-
-<style>
-body {font-family: Arial, Helvetica, sans-serif;}
-* {box-sizing: border-box;}
-
-/* Button used to open the contact form - fixed at the bottom of the page */
-.upload-video-button {
-  background-color: #555;
-  color: white;
-  padding: 16px 20px;
-  border: none;
-  cursor: pointer;
-  opacity: 0.8;
-  /*position: fixed;
-  bottom: 23px;
-  right: 28px;
-  width: 280px;*/
-}
-
-.btn-upload-video {
-  border: 2px solid gray;
-  color: gray;
-  background-color: azure;
-  width: 130px;
-  heigth: 130px;
-  /*padding: 2px 8px;*/
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: bold;
-  
-}
-
-.upload-btn-wrapper input[type=file] {
-  font-size: 50px;
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
-}
-
-/* The popup form - hidden by default */
-.upload-video-form-popup {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  right: 15px;
-  border: 3px solid #f1f1f1;
-  z-index: 9;
-}
-
-/* Add styles to the form container */
-.form-container {
-  max-width: 300px;
-  padding: 10px;
-  background-color: white;
-}
-
-/* Full-width input fields */
-.form-container input[type=text], .form-container input[type=password] {
-  width: 100%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
-  border: none;
-  background: #f1f1f1;
-}
-
-/* When the inputs get focus, do something */
-.form-container input[type=text]:focus, .form-container input[type=password]:focus {
-  background-color: #ddd;
-  outline: none;
-}
-
-/* Set a style for the submit/login button */
-.form-container .btn {
-  background-color: #4CAF50;
-  color: white;
-  padding: 16px 20px;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  margin-bottom:10px;
-  opacity: 0.8;
-}
-
-/* Add a red background color to the cancel button */
-.form-container .cancel {
-  background-color: red;
-}
-
-/* Add some hover effects to buttons */
-.form-container .btn:hover, .open-button:hover {
-  opacity: 1;
-}
-</style>
-
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
+<link rel="stylesheet" type="text/css" href="css/main.css">
 
 </head>
 <!--/head-->
 
-<body id="home" class="homepage">
+<body id="home" class="homepage inner-content scrollbar-dynamic">
 
 	<label id="actualFolder"></label>
 	
 	<button id="back">back</button>
 
-	<table id="myTable">
-		<tr>
-			<td>Row1 cell1</td>
-			<td>Row1 cell2</td>
-			
-		</tr>
-		<tr>
-			<td>Row2 cell1</td>
-			<td>Row2 cell2</td>
-		</tr>
-		<tr>
-			<td>Row3 cell1</td>
-			<td>Row3 cell2</td>
-		</tr>
-	</table>
+	<div class="rounded-white-table">
+		<table id="myTable" class="file-explorer-table" cellpadding="2">
+			<tbody>
+			</tbody>
+		</table>
+	</div>
 	
 	<br>
 	
@@ -190,185 +86,8 @@ body {font-family: Arial, Helvetica, sans-serif;}
 	<video id="videoPlayer" width="320" height="240" controls>
     	<source src="SERVER_DATA/miei video/mio_tutorial_fpga.webm" type="video/mp4">
     </video>                  
-<script>
-
-//graphic related scripts...
-function openUploadVideoForm() {
-  document.getElementById("uploadVideoForm").style.display = "block";
-}
-
-function openCreateFolderForm(){
-	document.getElementById("createFolderForm").style.display = "block";
-}
-
-function closeForm() {
-  document.getElementById("uploadVideoForm").style.display = "none";
-}
-
-function closeFormCreateFolder() {
-	  document.getElementById("createFolderForm").style.display = "none";
-	}
-//end of graphic related scripts...
-
-
-//business logic scripts	
-var backButton = document.getElementById("back");
-var actualFolder = "";
-var actualFolderShower = document.getElementById("actualFolder");
-
-var video = document.getElementById('videoPlayer');
-
-window.onload = function() {
-	backButton.style.visibility = "hidden";
-	actualFolder = "";
-	actualFolderShower.innerHTML = "";  
-	requestData("");
-};
-
-function requestData(requested_folder) {
-	  var xhttp = new XMLHttpRequest();
-	  xhttp.onreadystatechange = function() {
-	    if (this.readyState == 4 && this.status == 200) {
-	    	actualFolder = requested_folder;
-	    	setData(this.responseText);
-	    	if(requested_folder.trim() != ""){
-	    		backButton.style.visibility = "visible";
-	    		backButton.id = requested_folder.substr(0,requested_folder.lastIndexOf("/"));
-	    		backButton.onclick = function() {
-	    			requestData(this.id);
-	    		};
-	    		actualFolderShower.innerHTML = requested_folder;//.substr(0,requested_folder.lastIndexOf("/"));
-	    	}
-	    	else{
-	    		backButton.style.visibility = "hidden";
-	    		actualFolderShower.innerHTML = requested_folder;
-	    	}
-		}
-	  };
-	  xhttp.open("POST", "requestData?requested_folder=" + requested_folder, true);
-	  xhttp.send();
-}
-
-
-//upload handling
-function uploadVideoAjax() {
-	var file = document.getElementById("video").files[0];
-	var path = actualFolder;
-	// alert(file.name+" | "+file.size+" | "+file.type);
-	var formdata = new FormData();
-	//formdata.append("path", "/new/try");
-	formdata.append("path", path);
-	formdata.append("video", file);
-	var ajax = new XMLHttpRequest();
-	ajax.upload.addEventListener("progress", progressHandler, false);
-	ajax.addEventListener("load", completeHandler, false);
-	ajax.addEventListener("error", errorHandler, false);
-	ajax.addEventListener("abort", abortHandler, false);
-	ajax.open("POST", "uploadData"); // http://www.developphp.com/video/JavaScript/File-Upload-Progress-Bar-Meter-Tutorial-Ajax-PHP
-	//use file_upload_parser.php from above url
-	ajax.send(formdata);
-}
-
-function progressHandler(event) {
-	document.getElementById("loaded_n_total").innerHTML = "Uploaded " + event.loaded + " bytes of " + event.total;
-	var percent = (event.loaded / event.total) * 100;
-	document.getElementById("progressBar").value = Math.round(percent);
-	document.getElementById("status").innerHTML = Math.round(percent) + "% uploaded... please wait";
-}
-
-function completeHandler(event) {
-	document.getElementById("status").innerHTML = event.target.responseText;
-	document.getElementById("progressBar").value = 0; //wil clear progress bar after successful upload
-	requestData(actualFolder);
-}
-
-function errorHandler(event) {
-	document.getElementById("status").innerHTML = "Upload Failed";
-}
-
-function abortHandler(event) {
-	document.getElementById("status").innerHTML = "Upload Aborted";
-}
-//end of handling update file
-	
-
-function createFolderAjax() {
-	var folderPath = actualFolder + "/" + document.getElementById('folderPath').value;
-	var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			closeFormCreateFolder();
-			requestData(actualFolder);
-		}
-	  };
-	  xhttp.open("POST", "createFolder?folderPath=" + folderPath, true);
-	  xhttp.send();
-}
-
-function openPlayer(path){
-	path = "SERVER_DATA" + path;
-
-	video.pause();
-	video.setAttribute('src', path);
-	video.load();
-	//video.play();
-	video.play().catch((e) => {console.log("error: not deployed folder")});
-}
-
-function setData(text){
-	var table = document.getElementById("myTable");
-	table.innerHTML = "";
-	var yourLines = text.split("\r\n");
-	var i = 0;
-	while(i < yourLines.length){
-		if(yourLines[i].trim() == "file" || yourLines[i].trim() == "folder"){
-			var row = table.insertRow(0);
-
-			var cell1 = row.insertCell(0);
-			var cell2 = row.insertCell(1);
-			var cell3 = row.insertCell(2);
-			
-			if(yourLines[i].trim() == "folder"){
-				cell1.innerHTML = '<img src="folder.png" width="20" height="20" />';
-				
-				cell3.innerHTML = '<button>apri lista</button>';
-				cell3.id = yourLines[i + 1];	
-				cell3.onclick = function() { requestData( actualFolder + "/" + this.id) }
-			}
-			if(yourLines[i].trim() == "file"){
-			    cell1.innerHTML = '<img src="video.png" width="20" height="20" />';
-			    cell3.innerHTML = '<button>apri film</button>';
-				cell3.id = actualFolder + "/" + yourLines[i + 1];	
-				cell3.onclick = function() { openPlayer(this.id) }
-			}
-			cell2.innerHTML = yourLines[i + 1];
-			
-			yourLines[i + 1];
-			
-			//cell2.onclick = function() {
-			//	  requestData("/" + cells[2].nodeValue);
-			//};
-			
-		}
-		i = i + 2;
-	}
-}
-
-//fill invisible form with path
-function fillPathValue() {
-    document.getElementById('file_path_in_upload_form').value = actualFolder;
-	return true;
-}
-
-/*
-function fillCreateFolderPathValue(){
-	document.getElementById('folderPath').value = actualFolder + "/" + document.getElementById('folderPath').value;
-	return true;
-}
-*/
-
-</script>
-
-
 </body>
+<script type="text/javascript" src="js/videoHubMain.js"></script>
+
+
 </html>

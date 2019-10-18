@@ -34,6 +34,9 @@ public class RequestDataServlet extends HttpServlet {
 					response.getWriter().println("folder");
 				response.getWriter().println(file.getName());
 			}
+			response.getWriter().println("free_space");
+			String freeSpace = String.valueOf(baseFolder.getFreeSpace());
+			response.getWriter().println(freeSpace);
 		}else {
 			response.sendRedirect("error_page.html");
 			return;
