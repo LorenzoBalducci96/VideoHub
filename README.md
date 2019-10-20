@@ -10,3 +10,5 @@ The web page has a video player that can stream the requested video selected fro
 The administrator (and just the administrator, owning a password) can access to remove files and folders.
 
 Future improvements: everyone can start to stream their own "recorded desktop" and that stream has to be accessible to everyone else in the lan.
+
+![](https://github.com/LorenzoBalducci96/VideoHub/blob/master/demo_screen.PNG)
