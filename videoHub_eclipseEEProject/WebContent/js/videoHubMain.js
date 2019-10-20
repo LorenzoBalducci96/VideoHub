@@ -139,24 +139,22 @@ function setData(text){
 
 				var cell1 = row.insertCell(0);
 			var cell2 = row.insertCell(1);
-			var cell3 = row.insertCell(2);
+
 
 
 
 			if(yourLines[i].trim() == "folder"){
-				cell1.innerHTML = '<img src="folder.png" width="20" height="20" />';
-
-				cell3.innerHTML = '<button>apri lista</button>';
-				cell3.id = yourLines[i + 1];	
-				cell3.onclick = function() { requestData( actualFolder + "/" + this.id) }
+				
+				//cell1.innerHTML = '<img src="folder.png" width="100%" height="100%" />';
+				cell1.innerHTML = '<img src="folder.png" class="icon">'; //width="' + (window.screen.height * window.devicePixelRatio) / 20 + '" height="' + (window.screen.height * window.devicePixelRatio) / 20 + '" />';
 				row.id = yourLines[i + 1];
 				row.onclick = function() { requestData( actualFolder + "/" + this.id) }
 			}
 			if(yourLines[i].trim() == "file"){
-				cell1.innerHTML = '<img src="video.png" width="20" height="20" />';
-				cell3.innerHTML = '<button>apri film</button>';
-				cell3.id = actualFolder + "/" + yourLines[i + 1];	
-				cell3.onclick = function() { openPlayer(this.id) }
+				var screenHeigth = screen.height;
+				//alert("screen heigth:" + screenHeigth)
+				cell1.innerHTML = '<img src="video.png" class="icon">'; // width="' + (window.screen.height * window.devicePixelRatio) / 20 + 'em" height="' + (window.screen.height * window.devicePixelRatio) / 20 + 'em" />';
+				//cell1.innerHTML = '<img src="video.png" width="20" height="20" />';
 				row.id = actualFolder + "/" + yourLines[i + 1];
 				row.onclick = function() { openPlayer(this.id) }
 			}

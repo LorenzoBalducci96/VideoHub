@@ -1,188 +1,280 @@
 /*SCROLLBAR DESIGN*/
 ::-webkit-scrollbar {
-  width: 20px;
+	width: 20px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px grey; 
-  border-radius: 10px;
+	box-shadow: inset 0 0 5px grey;
+	border-radius: 10px;
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: red; 
-  border-radius: 10px;
+	background: red;
+	border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #b30000; 
+	background: #b30000;
 }
 
-
-
-
-html
-{
-    height:100%;
-    width:100%;
+html {
+	height: 100%;
+	width: 100%;
 }
 
 /*BACKGROUND AND PAGE*/
-body
-{
-    margin:0px;
-    padding:0px; /*DONE*/
-    width:100%;
-    height:100%;
-    min-height:100%;
-    background: -webkit-linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
-    /*background: rgb(242,245,246); /* Old browsers */
-    /*background: -moz-linear-gradient(top,  rgba(242,245,246,1) 0%, rgba(227,234,237,1) 37%, rgba(200,215,220,1) 100%); /* FF3.6+ */
-    /*background: -webkit-linear-gradient(top,  #182848 100% 0%,#182848 100%,rgba(200,215,220,1) 100%); /* Chrome10+,Safari5.1+ */
-    /*background: -o-linear-gradient(top,  rgba(242,245,246,1) 0%,rgba(227,234,237,1) 37%,rgba(200,215,220,1) 100%); /* Opera 11.10+ */
-    /*background: -ms-linear-gradient(top,  rgba(242,245,246,1) 0%,rgba(227,234,237,1) 37%,rgba(200,215,220,1) 100%); /* IE10+ */
-    /*background: linear-gradient(to bottom,  #182848 100%, #4b6cb7 0%,rgba(200,215,220,1) 100%); /* W3C */
-    /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f5f6', endColorstr='#c8d7dc',GradientType=0 ); /* IE6-9 */
-    background-repeat:no-repeat;
-    background-attachment: fixed;
+body {
+	margin: 0px;
+	padding: 0px; /*DONE*/
+	width: 100%;
+	height: 100%;
+	min-height: 100%;
+	background: -webkit-linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+	/*background: rgb(242,245,246); /* Old browsers */
+	/*background: -moz-linear-gradient(top,  rgba(242,245,246,1) 0%, rgba(227,234,237,1) 37%, rgba(200,215,220,1) 100%); /* FF3.6+ */
+	/*background: -webkit-linear-gradient(top,  #182848 100% 0%,#182848 100%,rgba(200,215,220,1) 100%); /* Chrome10+,Safari5.1+ */
+	/*background: -o-linear-gradient(top,  rgba(242,245,246,1) 0%,rgba(227,234,237,1) 37%,rgba(200,215,220,1) 100%); /* Opera 11.10+ */
+	/*background: -ms-linear-gradient(top,  rgba(242,245,246,1) 0%,rgba(227,234,237,1) 37%,rgba(200,215,220,1) 100%); /* IE10+ */
+	/*background: linear-gradient(to bottom,  #182848 100%, #4b6cb7 0%,rgba(200,215,220,1) 100%); /* W3C */
+	/*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f5f6', endColorstr='#c8d7dc',GradientType=0 ); /* IE6-9 */
+	background-repeat: no-repeat;
+	background-attachment: fixed;
 }
 
-.noPadding{
-	 padding: 0px !important;
+.modal-dialog {
+	width: 90vh;
+	height: 90vh;
+	margin: 0;
+	padding: 0;
 }
 
-.entirePage{
-	height:100%;
-	height:100vh;
+.modal-content {
+	width: 75vh;
+	height: 75vh;
+	border-radius: 0;
+}
+
+.unscaled{
+  transform:scale(2.0);
+  transform-origin:0% 0%;
+  width: 50%;
+  height: 50%;
+}
+
+.noPadding {
+	padding: 0px !important;
+}
+
+.entirePage {
+	height: 100%;
+	height: 100vh;
 	padding: 10px;
 }
 
-label{
-    display: block; /* add this */
-    padding-bottom: 0px !important;
+label {
+	display: block; /* add this */
+	padding-bottom: 0px !important;
+}
+
+.two_buttons_div {
+	height: 100%
+}
+
+/*BUTTONS*/
+.main-button {
+	color: white;
+	font-size: 3.5vh;
+	display: block;
+	margin-right: 3%;
+	width: 45%;
+	height: 90%;
+	margin-top: 4px;
+	border: none;
+	cursor: pointer;
+	opacity: 0.6;
+	border-radius: 6px;
+	transition: opacity 0.3s ease-out;
+	-moz-transition: opacity .5s ease-out;
+	-webkit-transition: opacity .5s ease-out;
+	-o-transition: opacity .5s ease-out;
+	float: right;
+	display: block;
+}
+
+.main-button:hover {
+	opacity: 1;
+}
+
+.blue-button {
+	background-color: #0000BB;
+}
+
+.red-button {
+	background-color: #BB0000;
+}
+
+.green-button {
+	background-color: #00BB00;
 }
 
 .blue-rounded-button {
-  background-color: #0000BB;
-  color: white;
-  padding: 12px 16px;
-  border: none;
-  cursor: pointer;
-  margin-bottom:4px;
-  opacity: 0.6;
-  border-radius: 6px;
-  transition: opacity 0.3s ease-out;
-    -moz-transition: opacity .5s ease-out;
-    -webkit-transition: opacity .5s ease-out;
-    -o-transition: opacity .5s ease-out;
-  float:right;
-  margin-right: 8px;
-  margin-top: 8px;
+	background-color: #0000BB;
+	color: white;
+	font-size: 3.5vh;
+	display: block;
+	margin-right: 3%;
+	width: 45%;
+	height: 90%;
+	margin-top: 4px;
+	border: none;
+	cursor: pointer;
+	opacity: 0.6;
+	border-radius: 6px;
+	transition: opacity 0.3s ease-out;
+	-moz-transition: opacity .5s ease-out;
+	-webkit-transition: opacity .5s ease-out;
+	-o-transition: opacity .5s ease-out;
+	float: right;
+	display: block;
 }
 
-.blue-rounded-button:hover{
+.blue-rounded-button:hover {
 	opacity: 1;
 }
 
 .red-rounded-button {
-  background-color: #BB0000;
-  color: white;
-  padding: 16px 20px;
-  border: none;
-  cursor: pointer;
-  margin-bottom:10px;
-  opacity: 0.6;
-  border-radius: 6px;
-  transition: opacity 0.3s ease-out;
-    -moz-transition: opacity .5s ease-out;
-    -webkit-transition: opacity .5s ease-out;
-    -o-transition: opacity .5s ease-out;
+	background-color: #BB0000;
+	color: white;
+	font-size: 4.5vh;
+	display: block;
+	border: none;
+	cursor: pointer;
+	opacity: 0.6;
+	border-radius: 6px;
+	transition: opacity 0.3s ease-out;
+	-moz-transition: opacity .5s ease-out;
+	-webkit-transition: opacity .5s ease-out;
+	-o-transition: opacity .5s ease-out;
 }
 
-.red-rounded-button:hover{
+.red-rounded-button:hover {
 	opacity: 1;
 }
 
 .green-rounded-button {
-  background-color: #00BB00;
-  color: white;
-  padding: 16px 20px;
-  border: none;
-  cursor: pointer;
-  margin-bottom:10px;
-  opacity: 0.6;
-  border-radius: 6px;
-  transition: opacity 0.3s ease-out;
-    -moz-transition: opacity .5s ease-out;
-    -webkit-transition: opacity .5s ease-out;
-    -o-transition: opacity .5s ease-out;
+	background-color: #00BB00;
+	color: white;
+	font-size: 4.5vh;
+	display: block;
+	border: none;
+	cursor: pointer;
+	opacity: 0.6;
+	border-radius: 6px;
+	transition: opacity 0.3s ease-out;
+	-moz-transition: opacity .5s ease-out;
+	-webkit-transition: opacity .5s ease-out;
+	-o-transition: opacity .5s ease-out;
 }
 
-.green-rounded-button:hover{
+.green-rounded-button:hover {
 	opacity: 1;
 }
 
-.stretch-width{
+/*END OF BUTTONS*/
+.stretch-width {
 	width: 100%;
 }
 
-
 .btn-upload-video {
-  border: 2px solid gray;
-  color: gray;
-  background-color: azure;
-  width: 130px;
-  heigth: 130px;
-  /*padding: 2px 8px;*/
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: bold;
-  
+	border: 2px solid gray;
+	color: gray;
+	background-color: azure;
+	width: 130px;
+	heigth: 130px;
+	/*padding: 2px 8px;*/
+	border-radius: 10px;
+	font-size: 14px;
+	font-weight: bold;
 }
 
 .upload-btn-wrapper input[type=file] {
-  font-size: 50px;
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
+	font-size: 50px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	opacity: 0;
 }
 
 /* The popup form - hidden by default */
 .upload-video-form-popup {
-  display: none;
-  position: fixed;
-  bottom: 10px;
-  right: 25px;
-  border: 3px solid #f1f1f1;
-  z-index: 9;
-    border-radius: 6px;
+	display: none;
+	position: fixed;
+	bottom: 10px;
+	right: 25px;
+	border: 3px solid #f1f1f1;
+	z-index: 9;
+	border-radius: 8px;
+	width: 30%;
 }
 
 /* Add styles to the form container */
 .form-container {
-  max-width: 300px;
-  padding: 10px;
-  background-color: white;
+	max-width: 100%;
+	padding: 10px;
+	background-color: white;
+}
+
+@media screen and (orientation: portrait) {
+	.upload-video-form-popup {
+		width: 80%;
+	}
+}
+
+@media screen and (min-resolution: 72dpi) {
+	.upload-video-form-popup {
+		font-size: 16px;
+	}
+}
+
+@media screen and (min-resolution: 144dpi) {
+	.upload-video-form-popup {
+		font-size: 24px;
+	}
+}
+
+@media screen and (min-resolution: 170dpi) and (orientation: portrait) {
+	.upload-video-form-popup {
+		font-size: 42px;
+	}
+}
+
+@media screen and (min-resolution: 192dpi) {
+	.upload-video-form-popup {
+		font-size: 24px;
+	}
+}
+
+@media screen and (min-resolution: 192dpi) and (orientation: portrait) {
+	.upload-video-form-popup {
+		font-size: 68px;
+	}
 }
 
 /* Full-width input fields */
 .form-container input[type=text], .form-container input[type=password] {
-  width: 100%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
-  border: none;
-  background: #f1f1f1;
+	width: 100%;
+	padding: 15px;
+	margin: 5px 0 22px 0;
+	border: none;
+	background: #f1f1f1;
 }
 
 /* When the inputs get focus, do something */
-.form-container input[type=text]:focus, .form-container input[type=password]:focus {
-  background-color: #ddd;
-  outline: none;
+.form-container input[type=text]:focus, .form-container input[type=password]:focus
+	{
+	background-color: #ddd;
+	outline: none;
 }
-
-
-
-

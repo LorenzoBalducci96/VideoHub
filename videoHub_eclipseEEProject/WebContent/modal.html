@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<link rel="stylesheet" type="text/css"
+	href="vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+<!-- <link rel="stylesheet" type="text/css"
+	href="css/searchbar.css">-->
+
+
+<!--===============================================================================================-->
+<!-- <link rel="stylesheet" type="text/css"
+	href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+
+<link rel="stylesheet" type="text/css" href="css/template.css">
+
+</head>
+<!--/head-->
+
+<body id="home" class="homepage inner-content scrollbar-dynamic">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 noPadding">
+				<div class="entirePage">
+					<div class="table100 ver1">
+
+						<div class="table100-head">
+							<table>
+								<thead>
+									<tr class="row100 head">
+										<th class="cell100 column1"><button id="back">back</button></th>
+										<th class="cell100 column2"><label>home</label><label
+											id="actualFolder"></label> <!-- <div class="container">
+												<input type="text" placeholder="Search...">
+												<div class="search"></div>
+											</div>--></th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+
+						<div class="table100-body js-pscroll">
+							<table id="myTable">
+								<tbody>
+								</tbody>
+							</table>
+						</div>
+
+						<div id="table100-bottom" class="table100-bottom">
+
+							<button class="main-button blue-button" data-toggle="modal"
+								data-target="#exampleModalCenter">Upload video</button>
+							<button class="blue-rounded-button"
+								onclick="openCreateFolderForm()">Create folder</button>
+							<div class="modal fade" id="exampleModalCenter" tabindex="-1"
+								role="dialog" aria-labelledby="exampleModalCenterTitle"
+								aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLongTitle">Modal
+												title</h5>
+											<button type="button" class="close" data-dismiss="modal"
+												aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">...</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-dismiss="modal">Close</button>
+											<button type="button" class="btn btn-primary">Save
+												changes</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 noPadding">
+				<div class="entirePage">
+					<div class="margin">
+						<video id="videoPlayer" width="100%" height="auto" controls>
+							<source src="SERVER_DATA/miei video/mio_tutorial_fpga.webm"
+								type="video/mp4">
+						</video>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="upload-video-form-popup" id="uploadVideoForm">
+		<form method="post" action="uploadData" enctype="multipart/form-data"
+			class="form-container" onsubmit="return fillPathValue();">
+
+			<label><b>Video File (.mp4 .mkv or .avi)</b></label> <br> <label>free
+				space:</label> <label id="freeSpace"></label> <input type="file"
+				name="video" id="video" /> <br> <label style="display: none;">
+				<input type="text" id="file_path_in_upload_form" name="path"
+				class="form-control">
+			</label> <label> <textarea name="descrizione" class="form-control"
+					rows="3" placeholder="descrizione (apparirà nella lista dei video)"></textarea>
+			</label>
+
+			<progress id="progressBar" value="0" max="100" style="width: 100%;"></progress>
+
+			<h3 id="status"></h3>
+			<p id="loaded_n_total"></p>
+
+			<!--<button type="submit" class="btn">Upload Video</button>-->
+			<button type="button" class="green-rounded-button stretch-width"
+				onclick="uploadVideoAjax()">Upload Video</button>
+			<br>
+			<button type="button" class="red-rounded-button stretch-width"
+				onclick="closeForm()">Close</button>
+		</form>
+	</div>
+
+	<div class="upload-video-form-popup" id="createFolderForm">
+		<div class="form-container">
+
+			<label><b>create folder ("tv series 2019", "disney
+					films", "action movies"...)</b></label> <br> <br> <label> <input
+				id="folderPath" type="text" name="folderPath" class="form-control"
+				placeholder="inserisci nome cartella" required>
+			</label> <br>
+
+			<!-- <button type="submit" class="btn">Upload Video</button>-->
+			<button type="button" class="green-rounded-button stretch-width"
+				onClick="createFolderAjax()">Create folder now</button>
+			<br>
+			<button type="button" class="red-rounded-button stretch-width"
+				onclick="closeFormCreateFolder()">Close</button>
+		</div>
+	</div>
+
+
+
+</body>
+<script type="text/javascript" src="js/videoHubMain.js"></script>
+
+
+</html>
